@@ -1,6 +1,6 @@
 class APIConstants {
   static const String OCTET_STREAM_ENCODING = 'application/octet-stream';
-  static const String API_BASE_URL = 'http://172.20.41.61';
+  static const String API_BASE_URL = 'http://172.20.49.61';
 }
 
 class APIOperations {
