@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:rest_api_integration_flutter/utils/app_shared_preferences.dart';
+import 'package:rest_api_integration_flutter/pages/login_page.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -58,6 +59,7 @@ class _SplashPageState extends State<SplashPage> {
           // home page
         } else {
           // login page
+          Navigator.pushReplacement(context, new MaterialPageRoute(builder: (context) => new LoginPage()));
         }
       });
     }
