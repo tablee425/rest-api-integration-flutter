@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:rest_api_integration_flutter/utils/constants.dart';
 import 'package:rest_api_integration_flutter/components/progress_dialog.dart';
+import 'package:rest_api_integration_flutter/models/EventObject.dart';
+import 'package:rest_api_integration_flutter/futures/app_futures.dart';
+import 'package:rest_api_integration_flutter/utils/app_shared_preferences.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -142,10 +145,47 @@ class _LoginPageState extends State<LoginPage> {
 
     FocusScope.of(context).requestFocus(new FocusNode());
     progressDialog.showProgress();
+    _loginUser(emailController.text, passwordController.text);
+  }
 
+  void _loginUser(String id, String password) async {
+    EventObject eventObject = await loginUser(id, password);
+    switch (eventObject.id) {
+      case EventConstants.LOGIN_USER_SUCCESSFUL:
+        {
+          setState(() {
+            AppSharedPreferences.setUserLoggedIn(true);
+            AppSharedPreferences.setUserProfile(eventObject.object);
+            globalKey.currentState.showSnackBar(new SnackBar(content: new Text(SnackBarText.LOGIN_SUCCESSFUL)));
+            progressDialog.hideProgress();
+            _goToHomeScreen();
+          });
+        }
+        break;
+      case EventConstants.LOGIN_USER_UN_SUCCESSFUL:
+        {
+          setState(() {
+            globalKey.currentState.showSnackBar(new SnackBar(content: new Text(SnackBarText.LOGIN_UN_SUCCESSFUL)));
+            progressDialog.hideProgress();
+          });
+        }
+        break;
+      case EventConstants.NO_INTERNET_CONNECTION:
+        {
+          setState(() {
+            globalKey.currentState.showSnackBar(new SnackBar(content: new Text(SnackBarText.NO_INTERNET_CONNECTION)));
+            progressDialog.hideProgress();
+          });
+        }
+        break;
+    }
+  }
+
+  void _goToHomeScreen() {
+    print('went home screen');
   }
 
   void _goToRegisterScreen() {
-    
+    print('went register screen');
   }
 }
