@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:rest_api_integration_flutter/utils/app_shared_preferences.dart';
 import 'package:rest_api_integration_flutter/pages/login_page.dart';
+import 'package:rest_api_integration_flutter/pages/home_page.dart';
 
 class SplashPage extends StatefulWidget {
   @override
@@ -57,6 +58,7 @@ class _SplashPageState extends State<SplashPage> {
       setState(() {
         if (isLoggedIn != null && isLoggedIn) {
           // home page
+          Navigator.pushReplacement(context, new MaterialPageRoute(builder: (context) => new HomePage()));
         } else {
           // login page
           Navigator.pushReplacement(context, new MaterialPageRoute(builder: (context) => new LoginPage()));

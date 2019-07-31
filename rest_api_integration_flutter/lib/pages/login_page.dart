@@ -5,6 +5,7 @@ import 'package:rest_api_integration_flutter/models/EventObject.dart';
 import 'package:rest_api_integration_flutter/futures/app_futures.dart';
 import 'package:rest_api_integration_flutter/utils/app_shared_preferences.dart';
 import 'package:rest_api_integration_flutter/pages/register_page.dart';
+import 'package:rest_api_integration_flutter/pages/home_page.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -183,7 +184,7 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void _goToHomeScreen() {
-    print('went home screen');
+    Navigator.pushReplacement(context, new MaterialPageRoute(builder: (context) => new HomePage()));
   }
 
   void _goToRegisterScreen() {
